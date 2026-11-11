@@ -212,6 +212,50 @@ footer p {
   .js .view.on { animation: none; }
   .btn, .door, .build li, body, .proj { transition: none; }
 }
+
+/* ---------- phones: app-style layout ---------- */
+html { background: var(--bg); }
+.tabbar { display: none; }
+@media (max-width: 720px) {
+  body { font-size: 16.5px; }
+  header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--bg); }
+  header .wrap { flex-wrap: nowrap; padding-block: 12px; }
+  header nav a[href^="#"] { display: none; }
+  header nav { flex-wrap: nowrap; gap: 6px; }
+  header nav a.ext { padding: 8px 10px; font-size: 14px; }
+  #theme { margin-left: 0; padding: 8px 12px; }
+  .tabbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding: 6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+    background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+  .tabbar a { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0 4px; border-radius: 12px;
+    text-decoration: none; color: var(--muted); font: 500 11px var(--body); -webkit-tap-highlight-color: transparent; }
+  .tabbar svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .tabbar a.on { color: var(--sea); background: var(--surface); }
+  footer { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(transparent 0 109px, var(--w3) 109px); }
+  footer p { bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
+  #tide { height: 110px; }
+  .view { padding-block: 28px 48px; }
+  h1 { font-size: clamp(38px, 11vw, 48px); margin: 14px 0 18px; }
+  h2 { font-size: clamp(30px, 8.6vw, 38px); }
+  .lede { font-size: 17.5px; margin-bottom: 24px; }
+  .cta .btn { flex: 1 1 auto; text-align: center; padding: 14px 18px; }
+  .psst { padding-block: 10px; }
+  .doors { gap: 10px; margin-top: 32px; }
+  .door { padding: 16px 18px; }
+  .live { gap: 12px; }
+  .proj { padding: 18px; }
+  .proj .go { gap: 10px; }
+  .proj .go a { flex: 1; text-align: center; padding: 11px 0; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg); }
+  .proj .go a:first-child { background: var(--sea); color: var(--bg); border-color: var(--sea); }
+  .row { padding-block: 22px; }
+  .build li { font-size: 22px; padding-block: 16px; }
+  .reach div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .reach dd { justify-content: space-between; }
+  .copy { padding: 7px 14px; }
+  .side .resume { width: 100%; text-align: center; padding: 14px; }
+  .chips button, .chip { padding: 10px 16px; }
+}
 </style>
 </head>
 <body>
@@ -410,6 +454,8 @@ footer p {
     </div>
   </section>
 </main>
+
+<nav class="tabbar" aria-label="Sections"><a href="#home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>home</span></a><a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>about</span></a><a href="#work"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2"/></svg><span>work</span></a><a href="#services"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z"/></svg><span>services</span></a><a href="#play"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="8" r="2"/><circle cx="16" cy="6" r="2"/><circle cx="12" cy="15" r="2"/><circle cx="18" cy="17" r="2"/><path d="M3 21L21 3" stroke-dasharray="2 3"/></svg><span>play</span></a><a href="#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>contact</span></a></nav>
 
 <footer>
   <canvas id="tide" aria-hidden="true"></canvas>
