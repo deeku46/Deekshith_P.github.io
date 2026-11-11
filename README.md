@@ -1,6 +1,6 @@
 # Deekshith P: portfolio
 
-Live at **https://deekshith-seven.vercel.app**
+Live at **https://deekshith-p.vercel.app**
 
 Personal portfolio of Deekshith P, a data science student, ML researcher and co-founder of [hundrd](https://hundrd.studio/).
 
