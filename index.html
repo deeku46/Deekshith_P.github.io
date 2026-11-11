@@ -149,6 +149,20 @@ h2 { font: 700 clamp(30px, 5vw, 48px)/1.08 var(--display); letter-spacing: -0.03
 .proj .go a:hover { text-decoration: underline; }
 .subhead { font: 600 13px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 56px 0 0; }
 
+/* resume + contact details */
+.side { display: grid; gap: 14px; align-content: start; }
+.side .resume { width: fit-content; margin-top: 8px; }
+.side .dl { font: 400 13px var(--mono); color: var(--muted); }
+.reach { margin: 0 0 32px; display: grid; gap: 4px; max-width: 34em; }
+.reach div { display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; gap: 12px; padding-block: 12px; border-top: 1px solid var(--line); }
+.reach div:last-child { border-bottom: 1px solid var(--line); }
+.reach dt { font: 400 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.reach dd { margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font: 500 clamp(17px, 2.4vw, 22px) var(--display); }
+.reach dd a { text-decoration: none; overflow-wrap: anywhere; }
+.reach dd a:hover { color: var(--sea); }
+.copy { font: 400 12px var(--mono); color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+.copy:hover { color: var(--fg); border-color: var(--muted); }
+
 /* services */
 .build { list-style: none; margin: 24px 0 0; padding: 0; }
 .build li {
@@ -260,6 +274,7 @@ footer p {
           <p>Outside research I build practical things. I design workflow automations in n8n and have built five of them, each on a different architecture, using only free services. I also make bots and small web tools.</p>
           <p>For Smart India Hackathon 2025 my team designed a multilingual, retrieval-based assistant that answers farmers' questions in regional languages. Right now I'm going deeper into NLP and large language models.</p>
         </div>
+        <div class="side">
         <dl class="facts">
           <div><dt>Education</dt><dd>B.Tech CSE (Data Science), Presidency University</dd></div>
           <div><dt>Research</dt><dd>Model generalisation, fraud detection, explainable AI</dd></div>
@@ -268,6 +283,9 @@ footer p {
           <div><dt>Co-founder</dt><dd><a href="https://hundrd.studio/" target="_blank" rel="noopener">hundrd.studio</a>, AI and data</dd></div>
           <div><dt>Based in</dt><dd>Bengaluru, India</dd></div>
         </dl>
+          <a class="btn solid resume" href="Deekshith_P_Resume.pdf" target="_blank" rel="noopener">View my resume &nearr;</a>
+          <a class="dl" href="Deekshith_P_Resume.pdf" download>or download the PDF</a>
+        </div>
       </div>
     </div>
   </section>
@@ -361,7 +379,11 @@ footer p {
     <div class="wrap">
       <span class="eyebrow">contact</span>
       <h2>Have something that <em>needs building?</em></h2>
-      <p class="lede">The quickest way to reach me is a LinkedIn message. I usually reply within a day.</p>
+      <p class="lede">Email, call or message me on LinkedIn. I usually reply within a day.</p>
+      <dl class="reach">
+        <div><dt>email</dt><dd><a href="mailto:deekshith3346@gmail.com">deekshith3346@gmail.com</a><button type="button" class="copy" data-copy="deekshith3346@gmail.com">copy</button></dd></div>
+        <div><dt>phone</dt><dd><a href="tel:+918217578709">+91 82175 78709</a><button type="button" class="copy" data-copy="+918217578709">copy</button></dd></div>
+      </dl>
       <div class="cta">
         <a class="btn solid" href="https://www.linkedin.com/in/deekshith-p-863a25296/" target="_blank" rel="noopener">Message me on LinkedIn</a>
         <a class="btn" href="https://github.com/deeku46" target="_blank" rel="noopener">See my GitHub</a>
@@ -648,6 +670,14 @@ footer p {
   setTheme(saved === 'dark' ? 'dark' : 'light');
   if (!still) draw();
   dropBall(0.9, 0.12);
+
+  /* copy buttons on the contact page */
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.dataset.copy, done = function () { b.textContent = 'copied'; setTimeout(function () { b.textContent = 'copy'; }, 1500); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () {}); 
+    });
+  });
 })();
 </script>
 </body>
