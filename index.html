@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deekshith P</title>
+<meta name="description" content="Deekshith P builds machine learning systems, automations and small software tools. Data science student and ML researcher in Bengaluru.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: calm water. One column, one page per topic, a tide along the bottom edge, and a model you can train by clicking. */
+:root {
+  --bg: #F5F7F4;        /* sea mist, slightly warm */
+  --surface: #E4ECE8;   /* shallow water */
+  --fg: #17282A;        /* deep water */
+  --muted: #586C69;
+  --line: #D6E0DB;
+  --sea: #33847A;       /* warm sea green, main accent */
+  --green: #4A9C8C;     /* playground */
+  --blue: #4C7FA8;      /* playground */
+  --pop: #EE6F8B;       /* reef coral pink: the moon and a few dots */
+  --w1: #D0E0DB; --w2: #98B9B2; --w3: #3F6660;
+  --display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --mono: "DM Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #132021;
+  --surface: #1C2D2D;
+  --fg: #F3F7F4;
+  --muted: #9DB3AF;
+  --line: #2A3F3E;
+  --sea: #86CFC2;
+  --green: #7CCBBE;
+  --blue: #8DBBE0;
+  --pop: #F58FA6;
+  --w1: #1B3030; --w2: #284844; --w3: #3F6660;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; display: flex; flex-direction: column; min-height: 100vh;
+  background: var(--bg); color: var(--fg);
+  font: 400 17px/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
+  transition: background .4s ease, color .4s ease;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--sea); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  width: 100%; max-width: 920px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* nav */
+header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-block: 24px; }
+.mark { font: 700 20px var(--display); text-decoration: none; letter-spacing: -0.02em; }
+.mark i { color: var(--pop); font-style: normal; }
+nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; font-size: 15px; }
+nav a { text-decoration: none; color: var(--muted); padding: 6px 12px; border-radius: 999px; transition: background .2s, color .2s; }
+nav a:hover { color: var(--fg); }
+nav a.on { background: var(--surface); color: var(--sea); font-weight: 600; }
+#theme {
+  margin-left: 8px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  font: 400 13px var(--mono); color: var(--muted); background: none; border: 1px solid var(--line);
+}
+#theme:hover { color: var(--fg); border-color: var(--muted); }
+
+/* pages */
+main { flex: 1; }
+.view { padding-block: 40px 72px; }
+.js .view { display: none; }
+.js .view.on { display: block; animation: rise .45s ease both; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.eyebrow { font: 400 13px var(--mono); color: var(--muted); display: inline-flex; align-items: center; gap: 10px; }
+.eyebrow b { width: 8px; height: 8px; border-radius: 50%; background: var(--pop); }
+h1 {
+  font: 700 clamp(40px, 7vw, 74px)/1.02 var(--display);
+  letter-spacing: -0.04em; margin: 20px 0 24px; max-width: 11em; text-wrap: balance;
+}
+h1 em, h2 em { font-style: normal; color: var(--sea); }
+h2 { font: 700 clamp(30px, 5vw, 48px)/1.08 var(--display); letter-spacing: -0.035em; margin: 12px 0 16px; max-width: 15em; text-wrap: balance; }
+.lede { max-width: 32em; margin: 0 0 32px; font-size: 19px; color: var(--muted); }
+.lede strong { color: var(--fg); font-weight: 500; }
+
+.cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn {
+  display: inline-block; padding: 12px 22px; border-radius: 999px; cursor: pointer;
+  font: 600 15px var(--body); text-decoration: none;
+  border: 1.5px solid var(--sea); color: var(--sea); background: none;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.solid { background: var(--sea); color: var(--bg); }
+.psst { font: 400 13px var(--mono); color: var(--sea); text-decoration: none; display: inline-block; margin-top: 24px; }
+.psst:hover { text-decoration: underline; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.descent { min-width: 0; }
+.descent canvas { display: block; width: 100%; aspect-ratio: 1; border-radius: 16px; background: var(--surface); cursor: crosshair; touch-action: manipulation; }
+.descent p { margin: 10px 0 0; font: 400 12px/1.5 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.descent p b { color: var(--sea); font-weight: 500; }
+
+/* home doors */
+.doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 48px; }
+.door { display: block; padding: 20px; border-radius: 16px; text-decoration: none; background: var(--surface); transition: transform .2s ease; }
+.door:hover { transform: translateY(-4px); }
+.door span { font: 400 12px var(--mono); color: var(--sea); }
+.door h3 { font: 600 21px/1.2 var(--display); letter-spacing: -0.02em; margin: 8px 0 4px; }
+.door p { margin: 0; font-size: 15px; color: var(--muted); }
+
+/* about */
+.about { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; margin-top: 24px; }
+.about p { margin: 0 0 16px; max-width: 34em; }
+.facts { margin: 0; }
+.facts div { padding-block: 14px; border-top: 1px solid var(--line); }
+.facts div:first-child { border-top: 0; padding-top: 0; }
+.facts dt { font: 400 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.facts dd { margin: 4px 0 0; }
+.about a, .facts a { color: var(--sea); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* work */
+.row { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 8px 32px; padding-block: 28px; border-top: 1px solid var(--line); }
+.row:first-of-type { margin-top: 24px; }
+.metric { font: 500 28px/1.1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; color: var(--sea); }
+.metric small { display: block; margin-top: 8px; font-size: 12px; letter-spacing: 0; color: var(--muted); }
+.row h3 { font: 600 24px/1.2 var(--display); letter-spacing: -0.02em; margin: 0 0 8px; text-wrap: balance; }
+.row p { margin: 0 0 12px; max-width: 34em; color: var(--muted); }
+.tags { font: 400 13px var(--mono); color: var(--muted); }
+.tags b { color: var(--sea); font-weight: 500; }
+
+/* live projects */
+.live { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.proj { background: var(--surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; transition: transform .2s ease; }
+.proj:hover { transform: translateY(-3px); }
+.proj .k { font: 400 12px var(--mono); color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+.proj .k i { width: 8px; height: 8px; border-radius: 50%; }
+.proj h3 { font: 600 22px/1.2 var(--display); letter-spacing: -0.02em; margin: 0; }
+.proj p { margin: 0; color: var(--muted); font-size: 15px; }
+.proj .m { font: 500 15px var(--mono); color: var(--sea); }
+.proj .go { display: flex; gap: 16px; margin-top: auto; padding-top: 8px; font: 500 14px var(--body); }
+.proj .go a { text-decoration: none; color: var(--sea); }
+.proj .go a:first-child { color: var(--fg); }
+.proj .go a:hover { text-decoration: underline; }
+.subhead { font: 600 13px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 56px 0 0; }
+
+/* services */
+.build { list-style: none; margin: 24px 0 0; padding: 0; }
+.build li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 6px 24px; flex-wrap: wrap;
+  padding-block: 18px; border-top: 1px solid var(--line);
+  font: 600 clamp(22px, 3.2vw, 30px)/1.15 var(--display); letter-spacing: -0.02em;
+  transition: color .2s ease, padding-left .2s ease;
+}
+.build li:hover { color: var(--sea); padding-left: 10px; }
+.build span { font: 400 13px var(--mono); letter-spacing: 0; color: var(--muted); }
+.note { margin-top: 32px; padding: 20px; border-radius: 16px; background: var(--surface); max-width: 36em; }
+.note p { margin: 0; }
+
+/* playground */
+.lab { margin-top: 24px; border-radius: 16px; overflow: hidden; background: var(--surface); }
+#lab { display: block; width: 100%; aspect-ratio: 16 / 9; cursor: crosshair; touch-action: none; }
+.tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.chip {
+  padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  font: 500 14px var(--body); color: var(--fg); background: none; border: 1.5px solid var(--line);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.chip i { width: 10px; height: 10px; border-radius: 50%; }
+.chip[aria-pressed="true"] { border-color: var(--fg); background: var(--surface); }
+.chip:hover { border-color: var(--muted); }
+#stat { margin: 16px 0 0; font: 400 13px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.explain { max-width: 36em; color: var(--muted); margin: 16px 0 0; }
+
+/* tide */
+footer { position: relative; }
+#tide { display: block; width: 100%; height: 170px; }
+footer p {
+  position: absolute; left: 0; right: 0; bottom: 14px; margin: 0; text-align: center;
+  font: 400 12px var(--mono); color: #F3F7F4; padding-inline: 16px; pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .doors, .about, .hero, .live { grid-template-columns: minmax(0, 1fr); }
+  .descent canvas { aspect-ratio: 4 / 3; }
+  .about { gap: 32px; }
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .view { padding-block: 24px 56px; }
+  #tide { height: 130px; }
+  #lab { aspect-ratio: 4 / 3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .view.on { animation: none; }
+  .btn, .door, .build li, body, .proj { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="mark" href="#home">deekshith<i>.</i></a>
+    <nav aria-label="Main">
+      <a href="#home">home</a>
+      <a href="#about">about</a>
+      <a href="#work">work</a>
+      <a href="#services">services</a>
+      <a href="#contact">contact</a>
+      <a href="#play">play</a>
+      <a class="ext" href="https://hundrd.studio/" target="_blank" rel="noopener">hundrd &nearr;</a>
+      <button id="theme" type="button" aria-label="Switch between day and night colours">night</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section class="view on" id="home">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <span class="eyebrow"><b></b>Open to freelance and internships</span>
+          <h1>I turn messy data into <em>things that work.</em></h1>
+          <p class="lede">I'm <strong>Deekshith P</strong>, a data science student and ML researcher in Bengaluru. I build models, automations and small software tools that do one job well.</p>
+          <div class="cta">
+            <a class="btn solid" href="#work">See my work</a>
+            <a class="btn" href="#contact">Get in touch</a>
+          </div>
+          <a class="psst" href="#play">psst, you can train a model on this site &rarr;</a>
+        </div>
+        <div class="descent">
+          <canvas id="gd" role="img" aria-label="Interactive depth chart: click to drop a ball that rolls downhill by gradient descent"></canvas>
+          <p id="gdout">click the chart to drop a ball</p>
+        </div>
+      </div>
+      <div class="doors">
+        <a class="door" href="#about"><span>who</span><h3>About me</h3><p>What I study, what I care about, what I use.</p></a>
+        <a class="door" href="#work"><span>proof</span><h3>Work</h3><p>Live ML projects to try, plus research.</p></a>
+        <a class="door" href="#services"><span>hire</span><h3>Services</h3><p>What I can build for you, and how fast.</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="view" id="about">
+    <div class="wrap">
+      <span class="eyebrow">about</span>
+      <h2>Curious about why models <em>get things wrong.</em></h2>
+      <div class="about">
+        <div>
+          <p>I'm in the final year of a B.Tech in Computer Science and Engineering, specialising in Data Science, at Presidency University in Bengaluru.</p>
+          <p>Most of my work sits where machine learning meets real decisions: catching fraud when it's one transaction in hundreds, spotting attacks in network traffic, and checking whether the features a model leans on are the ones it should.</p>
+          <p>I like results I can defend. That means held-out tests, honest baselines and saying so when an idea doesn't help.</p>
+          <p>I'm also the co-founder of <a href="https://hundrd.studio/" target="_blank" rel="noopener">hundrd</a>, a Bengaluru digital studio that builds websites, dashboards, forecasts and machine learning tools for growing businesses. I lead the AI and data side.</p>
+          <p>Outside research I build practical things. I design workflow automations in n8n and have built five of them, each on a different architecture, using only free services. I also make bots and small web tools.</p>
+          <p>For Smart India Hackathon 2025 my team designed a multilingual, retrieval-based assistant that answers farmers' questions in regional languages. Right now I'm going deeper into NLP and large language models.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Education</dt><dd>B.Tech CSE (Data Science), Presidency University</dd></div>
+          <div><dt>Research</dt><dd>Model generalisation, fraud detection, explainable AI</dd></div>
+          <div><dt>Toolkit</dt><dd>Python, scikit-learn, XGBoost, LightGBM, SHAP, FastAPI, n8n</dd></div>
+          <div><dt>Certification</dt><dd>NPTEL Foundations of Deep Learning, Elite + Silver</dd></div>
+          <div><dt>Co-founder</dt><dd><a href="https://hundrd.studio/" target="_blank" rel="noopener">hundrd.studio</a>, AI and data</dd></div>
+          <div><dt>Based in</dt><dd>Bengaluru, India</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="view" id="work">
+    <div class="wrap">
+      <span class="eyebrow">work</span>
+      <h2>Live projects you can <em>try right now.</em></h2>
+      <div class="live">
+        <article class="proj">
+          <span class="k"><i style="background:#6366F1"></i>computer vision</span>
+          <h3>Digit Reader</h3>
+          <p>Draw a digit and a neural network I trained reads it live. Inference written from scratch in JavaScript.</p>
+          <span class="m">96.5% accuracy on 1,500 unseen digits</span>
+          <div class="go"><a href="https://deeku46.github.io/digit-reader/" target="_blank" rel="noopener">open live &nearr;</a><a href="https://github.com/deeku46/digit-reader" target="_blank" rel="noopener">code &nearr;</a></div>
+        </article>
+        <article class="proj">
+          <span class="k"><i style="background:#2563EB"></i>explainable ML</span>
+          <h3>Bengaluru House Prices</h3>
+          <p>Price any Bengaluru home from 11,121 cleaned listings and see which factors pushed the price up or down.</p>
+          <span class="m">R² 0.85 · SHAP-style explanations</span>
+          <div class="go"><a href="https://deeku46.github.io/bengaluru-house-prices/" target="_blank" rel="noopener">open live &nearr;</a><a href="https://github.com/deeku46/bengaluru-house-prices" target="_blank" rel="noopener">code &nearr;</a></div>
+        </article>
+        <article class="proj">
+          <span class="k"><i style="background:#E8743B"></i>NLP</span>
+          <h3>Scam SMS Detector</h3>
+          <p>Paste a text and see if it looks like a scam, with the giveaway words highlighted. Ships with a FastAPI endpoint for bots.</p>
+          <span class="m">96.2% precision · 95.4% recall</span>
+          <div class="go"><a href="https://deeku46.github.io/scam-sms-detector/" target="_blank" rel="noopener">open live &nearr;</a><a href="https://github.com/deeku46/scam-sms-detector" target="_blank" rel="noopener">code &nearr;</a></div>
+        </article>
+        <article class="proj">
+          <span class="k"><i style="background:#8B5CF6"></i>analytics & forecasting</span>
+          <h3>Sales Dashboard</h3>
+          <p>Drop in any sales CSV and get KPIs, profit analysis, written insights and a back-tested 12-month forecast.</p>
+          <span class="m">Holt-Winters wins the back-test, 12.5% error</span>
+          <div class="go"><a href="https://deeku46.github.io/sales-dashboard/" target="_blank" rel="noopener">open live &nearr;</a><a href="https://github.com/deeku46/sales-dashboard" target="_blank" rel="noopener">code &nearr;</a></div>
+        </article>
+      </div>
+
+      <p class="subhead">research and coursework</p>
+
+      <article class="row">
+        <div class="metric">0.972<small>ROC-AUC on held-out test</small></div>
+        <div>
+          <h3>Cost-aware fraud triage</h3>
+          <p>Credit card fraud detection on 284,807 transactions where fraud is a tiny fraction of the data. Predictions are sorted into approve, review or block, with thresholds tuned on cost instead of accuracy and results reported with bootstrap confidence intervals.</p>
+          <div class="tags">XGBoost · LightGBM · SMOTE · SHAP · <b>paper in progress</b></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="metric">91.67%<small>up from 86.67%</small></div>
+        <div>
+          <h3>Re-examining Feature Importance</h3>
+          <p>An empirical study showing that removing the top-ranked features can reduce overfitting. On the UCI Cleveland heart disease data, XGBoost generalised better without the features it ranked highest.</p>
+          <div class="tags">Research · <b>accepted at ICDAM 2026</b></div>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="metric">99.7%<small>accuracy, 34 attack classes</small></div>
+        <div>
+          <h3>Intrusion detection for IoT networks</h3>
+          <p>A classifier trained on roughly one million network records that separates normal traffic from 34 kinds of attack.</p>
+          <div class="tags">Random Forest · scikit-learn · Python</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="view" id="services">
+    <div class="wrap">
+      <span class="eyebrow">services</span>
+      <h2>Small builds, <em>done properly.</em></h2>
+      <ul class="build">
+        <li>ML models and dashboards <span>prediction · detection · analysis</span></li>
+        <li>Workflow automation <span>leads · follow-ups · reports</span></li>
+        <li>Scrapers and data pipelines <span>clean data, on a schedule</span></li>
+        <li>Bots <span>Telegram · Discord · WhatsApp</span></li>
+        <li>Websites and landing pages <span>fast, responsive, live in days</span></li>
+      </ul>
+      <div class="note"><p>Tell me the problem in a couple of lines. I'll reply with what I'd build, how long it takes and what it costs.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="view" id="contact">
+    <div class="wrap">
+      <span class="eyebrow">contact</span>
+      <h2>Have something that <em>needs building?</em></h2>
+      <p class="lede">The quickest way to reach me is a LinkedIn message. I usually reply within a day.</p>
+      <div class="cta">
+        <a class="btn solid" href="https://www.linkedin.com/in/deekshith-p-863a25296/" target="_blank" rel="noopener">Message me on LinkedIn</a>
+        <a class="btn" href="https://github.com/deeku46" target="_blank" rel="noopener">See my GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAY -->
+  <section class="view" id="play">
+    <div class="wrap">
+      <span class="eyebrow">play</span>
+      <h2>Train a model <em>with your clicks.</em></h2>
+      <p class="lede">Click or drag on the water to drop data points. The model redraws its guess for every spot on the canvas as you go.</p>
+      <div class="lab"><canvas id="lab" role="img" aria-label="Interactive canvas where clicks add data points and a classifier colours the regions it assigns to each class"></canvas></div>
+      <div class="tools">
+        <button class="chip" id="cA" type="button" aria-pressed="true"><i style="background:var(--green)"></i>drop green</button>
+        <button class="chip" id="cB" type="button" aria-pressed="false"><i style="background:var(--blue)"></i>drop blue</button>
+        <button class="chip" id="moons" type="button">two moons</button>
+        <button class="chip" id="spiral" type="button">spiral</button>
+        <button class="chip" id="clear" type="button">clear</button>
+      </div>
+      <p id="stat"></p>
+      <p class="explain">This is a real classifier called k-nearest neighbours. For any spot, it looks at the three closest points you placed and takes a vote. Try dropping one blue point deep in green territory and watch it carve out an island.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <canvas id="tide" aria-hidden="true"></canvas>
+  <p>Deekshith P · Bengaluru</p>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var col = {};
+  function colors() {
+    var s = getComputedStyle(root), g = function (n) { return s.getPropertyValue(n).trim(); };
+    col = { w: [g('--w1'), g('--w2'), g('--w3')], sea: g('--sea'), green: g('--green'), blue: g('--blue'), pop: g('--pop'), bg: g('--bg'), fg: g('--fg'), muted: g('--muted') };
+  }
+
+  /* ---------- pages ---------- */
+  var views = document.querySelectorAll('.view'), links = document.querySelectorAll('nav a');
+  function show(to) {
+    var id = typeof to === 'string' ? to : (location.hash || '#home').slice(1), el = document.getElementById(id);
+    if (!el || !el.classList.contains('view')) id = 'home';
+    views.forEach(function (v) { v.classList.toggle('on', v.id === id); });
+    links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
+    window.scrollTo(0, 0);
+    if (id === 'play') { sizeLab(); render(); }
+    if (id === 'home') { sizeGD(); paintGD(); }
+  }
+
+  /* ---------- playground: k-nearest neighbours ---------- */
+  var lab = document.getElementById('lab'), lx = lab.getContext('2d'), stat = document.getElementById('stat');
+  var LW = 0, LH = 0, pts = [], cls = 0, K = 3, last = null;
+  function sizeLab() {
+    var r = lab.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    if (!r.width) return;
+    LW = r.width; LH = r.height;
+    lab.width = LW * d; lab.height = LH * d;
+    lx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function vote(x, y) {
+    var best = [];
+    for (var i = 0; i < pts.length; i++) {
+      var dx = (pts[i].x - x) * LW, dy = (pts[i].y - y) * LH, d = dx * dx + dy * dy;
+      if (best.length < K) { best.push([d, pts[i].c]); best.sort(function (a, b) { return a[0] - b[0]; }); }
+      else if (d < best[K - 1][0]) { best[K - 1] = [d, pts[i].c]; best.sort(function (a, b) { return a[0] - b[0]; }); }
+    }
+    var s = 0;
+    for (var j = 0; j < best.length; j++) s += best[j][1] ? 1 : -1;
+    return s > 0 ? 1 : 0;
+  }
+  function render() {
+    if (!LW) return;
+    lx.clearRect(0, 0, LW, LH);
+    var n = pts.length, cell = 10;
+    if (n) {
+      lx.globalAlpha = 0.24;
+      for (var y = 0; y < LH; y += cell) for (var x = 0; x < LW; x += cell) {
+        lx.fillStyle = vote((x + cell / 2) / LW, (y + cell / 2) / LH) ? col.blue : col.green;
+        lx.fillRect(x, y, cell, cell);
+      }
+      lx.globalAlpha = 1;
+    } else {
+      lx.fillStyle = col.muted; lx.font = '14px "DM Mono", monospace'; lx.textAlign = 'center'; lx.textBaseline = 'middle';
+      lx.fillText('click anywhere to add data', LW / 2, LH / 2);
+    }
+    for (var i = 0; i < n; i++) {
+      lx.beginPath(); lx.arc(pts[i].x * LW, pts[i].y * LH, 5.5, 0, 6.2832);
+      lx.fillStyle = pts[i].c ? col.blue : col.green; lx.fill();
+      lx.lineWidth = 2; lx.strokeStyle = col.bg; lx.stroke();
+    }
+    var b = pts.filter(function (p) { return p.c; }).length;
+    stat.textContent = 'points ' + n + '  ·  green ' + (n - b) + '  ·  blue ' + b + '  ·  model: k-nearest neighbours, k = ' + K;
+  }
+  function drop(e) {
+    var r = lab.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    if (x < 0 || x > 1 || y < 0 || y > 1) return;
+    if (last && Math.hypot((x - last.x) * LW, (y - last.y) * LH) < 22) return;
+    last = { x: x, y: y };
+    pts.push({ x: x, y: y, c: e.shiftKey ? 1 - cls : cls });
+    if (pts.length > 400) pts.shift();
+    render();
+  }
+  lab.addEventListener('pointerdown', function (e) { last = null; lab.setPointerCapture(e.pointerId); drop(e); });
+  lab.addEventListener('pointermove', function (e) { if (e.buttons || e.pressure > 0 && e.pointerType !== 'mouse') drop(e); });
+  function rnd() { return (Math.random() - 0.5) * 0.07; }
+  function moons() {
+    pts = [];
+    for (var i = 0; i < 34; i++) {
+      var a = Math.PI * i / 33;
+      pts.push({ x: 0.40 + 0.22 * Math.cos(a) + rnd(), y: 0.52 - 0.30 * Math.sin(a) + rnd(), c: 0 });
+      pts.push({ x: 0.60 - 0.22 * Math.cos(a) + rnd(), y: 0.46 + 0.30 * Math.sin(a) + rnd(), c: 1 });
+    }
+    render();
+  }
+  function spiral() {
+    pts = [];
+    for (var i = 4; i < 44; i++) {
+      var a = i * 0.26, r = 0.01 * i;
+      pts.push({ x: 0.5 + r * 0.62 * Math.cos(a), y: 0.5 + r * Math.sin(a), c: 0 });
+      pts.push({ x: 0.5 - r * 0.62 * Math.cos(a), y: 0.5 - r * Math.sin(a), c: 1 });
+    }
+    render();
+  }
+  var cA = document.getElementById('cA'), cB = document.getElementById('cB');
+  function pick(c) { cls = c; cA.setAttribute('aria-pressed', c === 0); cB.setAttribute('aria-pressed', c === 1); }
+  cA.addEventListener('click', function () { pick(0); });
+  cB.addEventListener('click', function () { pick(1); });
+  document.getElementById('moons').addEventListener('click', moons);
+  document.getElementById('spiral').addEventListener('click', spiral);
+  document.getElementById('clear').addEventListener('click', function () { pts = []; render(); });
+
+  /* ---------- home: gradient descent on a depth chart ---------- */
+  var gd = document.getElementById('gd'), gx = gd.getContext('2d'), gdout = document.getElementById('gdout');
+  var GW = 0, GH = 0, ball = null, trail = [], vel = [0, 0], steps = 0, rolling = false, chart = null;
+  var MIN = [[0.68, 0.62, 1.0, 0.06], [0.27, 0.30, 0.6, 0.035]];   /* x, y, depth, width: global, local */
+  function loss(x, y) {
+    var f = 1 + 0.25 * ((x - 0.5) * (x - 0.5) + (y - 0.5) * (y - 0.5));
+    for (var i = 0; i < 2; i++) { var m = MIN[i]; f -= m[2] * Math.exp(-((x - m[0]) * (x - m[0]) + (y - m[1]) * (y - m[1])) / m[3]); }
+    return f;
+  }
+  function grad(x, y) {
+    var gxv = 0.5 * (x - 0.5), gyv = 0.5 * (y - 0.5);
+    for (var i = 0; i < 2; i++) {
+      var m = MIN[i], e = m[2] * Math.exp(-((x - m[0]) * (x - m[0]) + (y - m[1]) * (y - m[1])) / m[3]) * 2 / m[3];
+      gxv += e * (x - m[0]); gyv += e * (y - m[1]);
+    }
+    return [gxv, gyv];
+  }
+  function sizeGD() {
+    var r = gd.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    if (!r.width) return;
+    GW = r.width; GH = r.height;
+    gd.width = GW * d; gd.height = GH * d;
+    gx.setTransform(d, 0, 0, d, 0, 0);
+    chart = null;
+  }
+  function buildChart() {
+    chart = document.createElement('canvas'); chart.width = GW; chart.height = GH;
+    var cx = chart.getContext('2d'), cell = 5;
+    cx.fillStyle = col.sea;
+    for (var y = 0; y < GH; y += cell) for (var x = 0; x < GW; x += cell) {
+      var f = Math.max(0, Math.min(1, loss((x + cell / 2) / GW, (y + cell / 2) / GH)));
+      cx.globalAlpha = 0.06 + Math.floor((1 - f) * 9) / 9 * 0.62;
+      cx.fillRect(x, y, cell, cell);
+    }
+  }
+  function paintGD() {
+    if (!GW) return;
+    if (!chart) buildChart();
+    gx.clearRect(0, 0, GW, GH);
+    gx.drawImage(chart, 0, 0);
+    if (!ball) return;
+    gx.strokeStyle = col.pop; gx.lineWidth = 2; gx.lineJoin = 'round';
+    gx.beginPath();
+    for (var i = 0; i < trail.length; i++) { if (i) gx.lineTo(trail[i][0] * GW, trail[i][1] * GH); else gx.moveTo(trail[i][0] * GW, trail[i][1] * GH); }
+    gx.stroke();
+    gx.fillStyle = col.pop; gx.beginPath(); gx.arc(ball[0] * GW, ball[1] * GH, 8, 0, 6.2832); gx.fill();
+    gx.lineWidth = 2.5; gx.strokeStyle = col.bg; gx.stroke();
+  }
+  function stepGD() {
+    var g = grad(ball[0], ball[1]);
+    vel[0] = 0.9 * vel[0] - 0.0016 * g[0]; vel[1] = 0.9 * vel[1] - 0.0016 * g[1];
+    ball[0] = Math.max(0.02, Math.min(0.98, ball[0] + vel[0])); ball[1] = Math.max(0.02, Math.min(0.98, ball[1] + vel[1]));
+    trail.push([ball[0], ball[1]]); steps++;
+    var done = (Math.hypot(vel[0], vel[1]) < 0.0004 && Math.hypot(g[0], g[1]) < 0.05) || steps > 500;
+    if (done) {
+      var deep = Math.hypot(ball[0] - MIN[0][0], ball[1] - MIN[0][1]) < 0.08;
+      gdout.innerHTML = 'step ' + steps + '  ·  loss ' + loss(ball[0], ball[1]).toFixed(3) + '  ·  ' +
+        (deep ? '<b>found the deepest point.</b> click to go again' : '<b>stuck in a shallow dip.</b> try another spot');
+    } else {
+      gdout.textContent = 'gradient descent  ·  step ' + steps + '  ·  loss ' + loss(ball[0], ball[1]).toFixed(3);
+    }
+    return done;
+  }
+  function roll() {
+    if (!rolling) return;
+    if (stepGD()) rolling = false;
+    paintGD();
+    if (rolling) requestAnimationFrame(roll);
+  }
+  function dropBall(x, y) {
+    ball = [x, y]; trail = [[x, y]]; vel = [0, 0]; steps = 0;
+    if (still) { while (!stepGD()) {} paintGD(); return; }
+    if (!rolling) { rolling = true; requestAnimationFrame(roll); }
+  }
+  gd.addEventListener('click', function (e) {
+    var r = gd.getBoundingClientRect();
+    dropBall((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+  });
+
+  /* ---------- tide ---------- */
+  var c = document.getElementById('tide'), ctx = c.getContext('2d');
+  var W = 0, H = 0, t = 0, swell = 0;
+  function size() {
+    var r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    W = r.width; H = r.height;
+    c.width = W * d; c.height = H * d;
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var mx = W * 0.82, my = H * 0.3, pulse = still ? 0.5 : 0.5 + 0.5 * Math.sin(t * 2.2);
+    ctx.fillStyle = col.pop;
+    ctx.globalAlpha = 0.16 + 0.10 * pulse; ctx.beginPath(); ctx.arc(mx, my, 34 + 5 * pulse, 0, 6.2832); ctx.fill();
+    ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(mx, my, 28, 0, 6.2832); ctx.fill();
+    ctx.fillStyle = '#17282A'; ctx.font = '500 13px "DM Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('click', mx, my + 1);
+    for (var i = 0; i < 3; i++) {
+      var base = H * (0.42 + i * 0.17), amp = (13 - i * 3) * (1 + swell), k = 0.006 + i * 0.002, sp = 0.5 + i * 0.25;
+      ctx.fillStyle = col.w[i];
+      ctx.beginPath(); ctx.moveTo(0, H);
+      for (var x = 0; x <= W + 8; x += 8) {
+        ctx.lineTo(x, base + Math.sin(x * k + t * sp + i * 2) * amp + Math.sin(x * k * 2.3 - t * sp * 0.7) * amp * 0.3);
+      }
+      ctx.lineTo(W, H); ctx.closePath(); ctx.fill();
+    }
+    if (!still) { t += 0.012; swell *= 0.97; requestAnimationFrame(draw); }
+  }
+  function onMoon(e) {
+    var r = c.getBoundingClientRect();
+    return Math.hypot(e.clientX - r.left - W * 0.82, e.clientY - r.top - H * 0.3) < 44;
+  }
+  c.addEventListener('pointermove', function (e) { c.style.cursor = onMoon(e) ? 'pointer' : 'default'; });
+  c.addEventListener('click', function (e) { if (onMoon(e)) { try { history.pushState(null, '', '#play'); } catch (err) {} show('play'); } });
+  addEventListener('pointermove', function () { swell = Math.min(swell + 0.02, 0.8); });
+  addEventListener('resize', function () { size(); if (still) draw(); sizeLab(); render(); sizeGD(); paintGD(); });
+
+  /* ---------- day / night ---------- */
+  var btn = document.getElementById('theme');
+  function setTheme(th) {
+    if (th === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    btn.textContent = th === 'dark' ? 'day' : 'night';
+    colors(); render(); chart = null; paintGD(); if (still) draw();
+  }
+  btn.addEventListener('click', function () {
+    var th = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('theme', th); } catch (e) {}
+    setTheme(th);
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  colors(); size();
+  moons();
+  addEventListener('hashchange', function () { show(); });
+  /* handle page links directly, so navigation also works where the address bar can't change (file previews, embeds) */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1), el = document.getElementById(id);
+    if (!el || !el.classList.contains('view')) return;
+    e.preventDefault();
+    try { history.pushState(null, '', '#' + id); } catch (err) {}
+    show(id);
+  });
+  addEventListener('popstate', function () { show(); });
+  show();
+  setTheme(saved === 'dark' ? 'dark' : 'light');
+  if (!still) draw();
+  dropBall(0.9, 0.12);
+})();
+</script>
+</body>
+</html>
